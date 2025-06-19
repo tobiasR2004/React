@@ -2,17 +2,18 @@ export
 
 
 .x-followCard{
-    display: flex;
-    align-items: center;
-    color: #fff;
-    font-size: .8rem;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: .8rem;
+  justify-content: space-between;
 }
 
 .x-followCard-header{
-    display: flex;
-    align-items: center;
-    gap: 4px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 4px
 }
 
 .x-followCard-header-div{
@@ -25,18 +26,32 @@ export
 }
 
 .x-followCard-img{
-width: 48px;
-height: 48px;
-border-radius: 1000px;
+  width: 48px;
+  height: 48px;
+  border-radius: 1000px;
 }
 
 .x-followCard-button{
-    cursor: pointer;
-    margin-left: 16px;
-    border: 0;
-    border-radius: 999px;
-    padding: 6px 16px;
-    font-weight: bold;
-    border: 1px solid #000;
+  cursor: pointer;
+  margin-left: 16px;
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-weight: bold;
+  border: 1px solid #000;
+  transition: .3s ease background-color;
+}
+
+.x-followCard-button.following{
+    border: 1px solid rgb(117, 0, 0);
+}
+
+.x-followCard-button:hover{
+    background-color: #75c7db;
     transition: .3s ease background-color;
+    opacity: .8;
+}
+
+.x-followCard-button.following:hover{
+    background-color: #ff4545;
 }

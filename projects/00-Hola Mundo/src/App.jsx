@@ -1,23 +1,26 @@
 import './App.css'
+import './index.css'
+import { XFollowCard } from './XFollowCard'
 
 export function App(){
+    const tobias = {
+         name: `tobias Romani`}   
+    
     return(
-    <article className='x-followCard'>
-        <header className="x-followCard-header">
-            <img className="x-followCard-img" alt="icono" src="https://i.pinimg.com/222x/57/70/f0/5770f01a32c3c53e90ecda61483ccb08.jpg"></img>
-            <div className="x-followCard-header-div">   
-                <strong>  Tobias Romani </strong>
-                <span className="x-followCard-header-div-cuenta"> @TobiasR26 </span>
-            </div>
-        </header>
+        <div className='App'>
+            <XFollowCard {...tobias}> 
+                tobiasromani6960 
+            </XFollowCard>
 
+            <XFollowCard  name ='Vorterix' initialIsFollowing={true}
+            >
+                'VorterixOficial' 
+            </XFollowCard>
 
-
-        <aside>
-            <button className="x-followCard-button">
-                Seguir
-            </button>
-        </aside>
-    </article>
+            <XFollowCard name='YouTube' 
+            >
+                youtube
+            </XFollowCard>
+        </div>        
     )
 }
