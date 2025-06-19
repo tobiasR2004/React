@@ -22,6 +22,11 @@ const users =  [
         name: 'Twitch',
         userName: 'twitch',
         initialIsFollowing: false,
+        },
+        {
+            name: 'Lichi',
+            userName: 'lichiiuksd6789',
+            initialIsFollowing: false,
         }
     ]
 
