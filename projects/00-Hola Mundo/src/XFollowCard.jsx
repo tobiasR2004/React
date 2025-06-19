@@ -17,19 +17,20 @@ export function XFollowCard({ children, name = 'uknown', initialIsFollowing}) {
  return(
     <article className='x-followCard'>
         <header className="x-followCard-header">
-        <img className="x-followCard-img" alt="icono" src={imageSrc}></img>
-        <div className="x-followCard-header-div">
-            <strong> {name} </strong>
-            <span className="x-followCard-header-div-cuenta"> @{children} </span>
-        </div>
-        
+            <img className="x-followCard-img" alt="icono" src={imageSrc}></img>
+            <div className="x-followCard-header-div">
+                <strong> {name} </strong>
+                <span className="x-followCard-header-div-cuenta"> @{children} </span>
+            </div>
+       
 
-        <aside>
-            <button className={buttonClassName} onClick={handleClick}>
-            {text}
-            </button>
-        </aside>
-        </header>
+            <aside>
+                <button className={buttonClassName} onClick={handleClick}>
+                    <span className='x-followCard-text'>{text}</span>
+                    <span className='x-followCard-stopFollow'> dejar de seguir </span>
+                </button>
+            </aside>
+         </header>
         
         
     </article>

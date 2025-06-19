@@ -2,25 +2,45 @@ import './App.css'
 import './index.css'
 import { XFollowCard } from './XFollowCard'
 
-export function App(){
-    const tobias = {
-         name: `tobias Romani`}   
-    
+const users =  [
+        {
+        name: 'tobias Romani',
+        userName: 'tobiasromani6960',
+        initialIsFollowing: true,
+        },
+        {
+        name: 'Vorterix',
+        userName: 'VorterixOficial',
+        initialIsFollowing: true,   
+        },
+        {
+        name: 'YouTube',
+        userName: 'youtube',
+        initialIsFollowing: false,
+        },
+        {   
+        name: 'Twitch',
+        userName: 'twitch',
+        initialIsFollowing: false,
+        }
+    ]
+
+export function App(){  
     return(
-        <div className='App'>
-            <XFollowCard {...tobias}> 
-                tobiasromani6960 
-            </XFollowCard>
-
-            <XFollowCard  name ='Vorterix' initialIsFollowing={true}
-            >
-                'VorterixOficial' 
-            </XFollowCard>
-
-            <XFollowCard name='YouTube' 
-            >
-                youtube
-            </XFollowCard>
-        </div>        
+        <section className='App'>
+        {
+            users.map(user => {
+                const {name, userName, initialIsFollowing } = user;
+                return (
+                    <XFollowCard
+                        key={userName}
+                        name={name}
+                        initialIsFollowing={initialIsFollowing}>    
+                        {userName}
+                        </XFollowCard>
+                )
+            })
+        }
+        </section>      
     )
 }

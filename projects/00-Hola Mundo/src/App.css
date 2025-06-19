@@ -42,8 +42,15 @@ export
   transition: .3s ease background-color;
 }
 
+.x-followCard-text{
+  display: block;
+
+}
+
 .x-followCard-button.following{
-    border: 1px solid rgb(117, 0, 0);
+    border: 1px solid rgba(250, 250, 250, 0.274);
+    background-color: #55555541;
+    color: #fff;
 }
 
 .x-followCard-button:hover{
@@ -53,5 +60,17 @@ export
 }
 
 .x-followCard-button.following:hover{
-    background-color: #ff4545;
+    background-color: #ff45452d;
+}
+
+.x-followCard-button.following:hover .x-followCard-stopFollow{
+    display: block;
+}
+
+.x-followCard-button.following:hover .x-followCard-text{
+    display: none;
+}
+
+.x-followCard-stopFollow{
+    display: none;
 }
