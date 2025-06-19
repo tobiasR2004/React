@@ -22,13 +22,18 @@ export function XFollowCard({ children, name = 'uknown', initialIsFollowing}) {
                 <strong> {name} </strong>
                 <span className="x-followCard-header-div-cuenta"> @{children} </span>
             </div>
-        </header>
-            <aside style={{display: 'flex'}}>
+        
+       
+
+            <aside>
                 <button className={buttonClassName} onClick={handleClick}>
                     <span className='x-followCard-text'>{text}</span>
                     <span className='x-followCard-stopFollow'> dejar de seguir </span>
                 </button>
-            </aside>  
+            </aside>
+         </header>
+        
+        
     </article>
     )
 }
