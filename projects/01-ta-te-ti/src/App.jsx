@@ -5,23 +5,38 @@ import './App.css'
 
 const turns = {
   X:'X',
-  O:'O',
+  O:'O'
 }
 
 
 
-const Square = ({children, updateBoard, index}) => {
-  return (  
-    <div className='square'>
+const Square = ({children, isSelected,  updateBoard, index}) => {
+  const className = `square ${isSelected ? 'is-selected' : ''}`
+
+  const handleClick = () => {
+    updateBoard();
+  }
+
+  return (
+    <div onClick={handleClick} className={className}>
       {children}
     </div>
   )
 }
 
 function App() {
-  const [board, setBoard] = useState(Array(9).fill(null))
+  
+  const [board, setBoard] = useState(
+    Array(9).fill(null)
+  )
 
-  const[turn, setTurn] = useState(turns.x)
+  const[turn, setTurn] = useState(turns.X)
+
+  const updateBoard = ()=> {
+    const newTurn = turn === turns.X ? turns.O : turns.X;
+    setTurn(newTurn);
+
+  }
 
 
     return  (
@@ -32,7 +47,9 @@ function App() {
             board.map((_, index) => {
               return (
                 <Square key={index}
-                index={index}>
+                index={index}
+                updateBoard={updateBoard}
+                >
                 {board[index]}
                 </Square>
               )
@@ -40,8 +57,8 @@ function App() {
           }
         </section>
           <section className="turn">
-            <Square isSelected={turn === turns.X}>{turn.X}</Square>
-            <Square isSelected={turn === turns.O}>{turn.O}</Square>
+            <Square isSelected={turn === turns.X}>{turns.X}</Square>
+            <Square isSelected={turn === turns.O}>{turns.O}</Square>
           </section>
 
       </main>
