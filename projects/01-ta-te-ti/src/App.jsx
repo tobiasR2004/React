@@ -44,20 +44,20 @@ function App() {
   const[turn, setTurn] = useState(turns.X)
   const[winner, setWinner] = useState(null) 
 
-  const checkWinner = (boardToCheck) => {
-  //Comprobar si hay un ganador
-    for (const combo of WINNER_COMBOS){
-      const [a,b,c] = combo;
-      if (boardToCheck[a] &&
-          boardToCheck[a] === boardToCheck[b] &&
-          boardToCheck[a] === boardToCheck[c]
-        ) {
-          return boardToCheck[a];
+    const checkWinner = (boardToCheck) => {
+    //Comprobar si hay un ganador
+      for (const combo of WINNER_COMBOS){
+        const [a,b,c] = combo;
+        if (boardToCheck[a] &&
+            boardToCheck[a] === boardToCheck[b] &&
+            boardToCheck[a] === boardToCheck[c]
+          ) {
+            return boardToCheck[a];
+      }
     }
+    //Si no hay ganador
+    return null;
   }
-  //Si no hay ganador
-  return null;
-}
 
   const updateBoard = (index)=> {
     //Si tiene algo no lo actualizo
@@ -76,8 +76,13 @@ function App() {
     const newWinner = checkWinner(newboard);
     if (newWinner) {
       setWinner(newWinner);
-      alert(`El ganador es: ${newWinner}`);
-    }
+    } // Si no hay ganador, se queda en null
+  }
+
+  const resetGame = () => {
+    setBoard(Array(9).fill(null));
+    setTurn(turns.X);
+    setWinner(null);
   }
 
 
@@ -102,6 +107,30 @@ function App() {
             <Square isSelected={turn === turns.X}>{turns.X}</Square>
             <Square isSelected={turn === turns.O}>{turns.O}</Square>
           </section>
+
+          {
+            winner != null && (
+              <section className='winner'>
+                <div className='text'>
+                 <h2>
+                 {
+                  winner === false ? `empate` : `gano: `
+                 }
+                 </h2>
+
+                 <header className='win'>
+                 {winner && <Square> {winner} </Square>}
+                 </header>
+                 
+                 <footer>
+                  <button onClick={resetGame}> Empezar de nuevo</button>
+                 </footer>
+
+                </div>
+              </section>
+            )
+
+          }
 
       </main>
     )
