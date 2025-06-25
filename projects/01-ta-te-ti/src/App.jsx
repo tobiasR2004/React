@@ -11,11 +11,18 @@ import { WinnerModal } from './components/winnerModal.jsx';
 
 function App() {
   
-  const [board, setBoard] = useState(
-    Array(9).fill(null)
+  const [board, setBoard] = useState(() => {
+    const boardFromStorage = window.localStorage.getItem('board');
+    return boardFromStorage ? JSON.parse(boardFromStorage) : Array(9).fill(null)
+  }
   )
 
-  const[turn, setTurn] = useState(turns.X)
+  const[turn, setTurn] = useState(() => {
+    const turnFromStorage = window.localStorage.getItem('turn')
+    return turnFromStorage ?? turns.X
+  })
+
+
   const[winner, setWinner] = useState(null) 
 
 
@@ -28,11 +35,15 @@ function App() {
     const newboard = [...board];
     newboard[index] = turn;
     setBoard(newboard)
+    //Actualizacion de turno
+     const newTurn = turn === turns.X ? turns.O : turns.X;
 
+    setTurn(newTurn);
+    window.localStorage.setItem('board', JSON.stringify(newboard));
+    window.localStorage.setItem('turn', newTurn);
     //Cambio de turno
     //Si es X, pasa a O y viceversa
-    const newTurn = turn === turns.X ? turns.O : turns.X;
-    setTurn(newTurn);
+
     //revisar si hay ganador
     const newWinner = checkWinnerFrom(newboard);
     if (newWinner) {
@@ -47,6 +58,9 @@ function App() {
     setBoard(Array(9).fill(null));
     setTurn(turns.X);
     setWinner(null);
+
+    window.localStorage.removeItem('board');
+    window.localStorage.removeItem('turn');
   }
 
 
