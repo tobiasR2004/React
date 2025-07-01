@@ -1,33 +1,30 @@
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
+import { followMouse } from './components/followMouse'
 
-function App() {
-  const [act, setAct] = useState(false);
+function App () {
+  const [act, setAct] = useState(false)
+  const [posicion, setPosicion] = useState({ x: 0, y: 0 })
+
   useEffect(() => {
+    const handleMove = (event) => {
+      const { clientX, clientY } = event
+      console.log('handlemove', { clientX, clientY })
+      setPosicion({ x: clientX, y: clientY })
+    }
 
-  
-    console.log('effect', act)
+    if (act) {
+      window.addEventListener('pointermove', handleMove)
+    }
+
+    return () => {
+      window.removeEventListener('pointermove', handleMove)
+    }
   }, [act])
-
   return (
-    <main>
-      <div style={{
-        position: 'absolute',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        border: '1px solid #fff',
-        borderRadius: '50%',
-        opacity: 0.8,
-        pointerEvents: 'none',
-        left: -25,
-        top: -25,
-        width: 50,
-        height: 50,
-        transform: `translate(0px, 0px)`
-      }}> 
-
-      </div> 
-      <button onClick={() => setAct(!act)}>{act ? 'on effect' : 'off effect'} </button>
-    </main>
+    <>
+      {followMouse(posicion, setAct, act)}
+    </>
   )
 }
 
