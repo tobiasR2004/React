@@ -27,6 +27,7 @@
 }
 
 .game-select {
+  font: menu;
   width: 45%;
   height: 85%;
   display: flex;
@@ -34,15 +35,15 @@
   align-items: center;
   text-decoration: none;
   font-size: 4rem;
-  background-color: #282c34;
-  color: #a0a0a0;
+  background-color: #1416191a;
+  color: #ffffff;
   transition: background-color 0.3s;
   border: 2px solid #5c6067;
   border-radius: 3%;
 }
 
 .game-select:hover {
-  background-color: #3a3f47;
+  background-color: #000000c3;
 }
 
 .back-button {

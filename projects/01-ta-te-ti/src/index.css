@@ -16,6 +16,7 @@
 }
 
 body {
+  background-image: url('./assets/img/fondo.jpg');
   margin: 0;
   display: flex;
   justify-content: center;
