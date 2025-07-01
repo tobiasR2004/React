@@ -19,6 +19,15 @@ export const FollowMouse = () => {
       window.removeEventListener('pointermove', handleMove)
     }
   }, [act])
+
+  useEffect(() => {
+    document.body.classList.toggle('no-cursor', act)
+
+    return () => {
+      document.body.classList.toggle('no-cursor', false)
+    }
+  }, [act])
+
   return (
     <main>
       <div
