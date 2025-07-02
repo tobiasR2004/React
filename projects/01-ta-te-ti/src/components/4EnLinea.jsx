@@ -5,11 +5,14 @@ import { faCaretLeft } from '@fortawesome/free-solid-svg-icons'
 import { Square } from './Square'
 import { turns } from '../constant.js'
 import { UseinitBoard } from './board.jsx'
+import { getLastEmptyIndexColumn } from '../logic/board.js'
 
 export const EnLinea = () => {
   const navigate = useNavigate()
   const volverAlMenu = () => navigate('/')
   const lengthBoard = 42
+  const numCol = 7
+  const numRow = 6
   const [board, setBoard] = UseinitBoard({ tamaño: lengthBoard })
   const [winner, setWinner] = useState(null)
 
@@ -19,17 +22,23 @@ export const EnLinea = () => {
   })
 
   const updateBoard = (index) => {
+    const col = index % 7
+
+    const lastEmptyIndex = getLastEmptyIndexColumn({ col, numCol, board, numRow })
+
     // Actualizacion de tablero
     const newBoard = [...board]
-    newBoard[index] = turn
+    newBoard[lastEmptyIndex] = turn
     setBoard(newBoard)
     // Actualizacion de turno
-    const newTurn = turn === turns.X ? turns.O : turns.X
-    setTurn(newTurn)
+    if (lastEmptyIndex != null) {
+      const newTurn = turn === turns.X ? turns.O : turns.X
+      setTurn(newTurn)
+    }
   }
 
   const resetGame = () => {
-    setBoard(Array(lengthBoard).fill())
+    setBoard(Array(lengthBoard).fill(null))
     setTurn(turns.X)
     setWinner(null)
     window.localStorage.removeItem('board')
