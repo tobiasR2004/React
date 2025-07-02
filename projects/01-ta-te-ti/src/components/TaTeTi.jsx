@@ -8,16 +8,12 @@ import { WinnerModal } from './winnerModal.jsx'
 import { saveGame, resetGameStorage } from '../logic/storage.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretLeft } from '@fortawesome/free-solid-svg-icons'
+import { UseinitBoard } from './board.jsx'
 
 export const TaTeTi = () => {
   const navigate = useNavigate()
   const volverAlMenu = () => navigate('/')
-
-  const [board, setBoard] = useState(() => {
-    const boardFromStorage = window.localStorage.getItem('board')
-    return boardFromStorage ? JSON.parse(boardFromStorage) : Array(9).fill(null)
-  }
-  )
+  const [board, setBoard] = UseinitBoard({ tamaño: 9 })
 
   const [turn, setTurn] = useState(() => {
     const turnFromStorage = window.localStorage.getItem('turn')
@@ -63,8 +59,8 @@ export const TaTeTi = () => {
   return (
     <main className='board'>
       <button className='back-button' onClick={volverAlMenu}><FontAwesomeIcon icon={faCaretLeft} /> </button>
-      <h1>Ta Te Ti</h1>
-      <button onClick={resetGame}>Reiniciar juego</button>
+      <h1 className='title-game'>Ta Te Ti</h1>
+
       <section className='game'>
         {
           board.map((_, index) => {
@@ -84,6 +80,7 @@ export const TaTeTi = () => {
         <Square isSelected={turn === turns.X}>{turns.X}</Square>
         <Square isSelected={turn === turns.O}>{turns.O}</Square>
       </section>
+      <button onClick={resetGame}>Reiniciar juego</button>
       <WinnerModal resetGame={resetGame} winner={winner} />
     </main>
   )

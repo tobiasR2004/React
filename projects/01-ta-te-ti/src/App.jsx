@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useState } from 'react'
 import { TaTeTi } from './components/TaTeTi'
+import { EnLinea } from './components/4EnLinea'
 import Menu from './components/menu.jsx'
 import './index.css'
 import './App.css'
@@ -26,7 +27,7 @@ function App () {
       <Routes>
         <Route path='/' element={<Menu setGame={setGame} />} />
         <Route path='/TaTeTi' element={<TaTeTi volverAlMenu={() => setGame(null)} />} />
-        <Route path='/4EnLinea' element={<h1>4 En Linea</h1>} />
+        <Route path='/4EnLinea' element={<EnLinea volverAlMenu={() => setGame(null)} />} />
       </Routes>
     </Router>
   )

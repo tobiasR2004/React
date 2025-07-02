@@ -41,9 +41,10 @@ body {
   margin-bottom: 16px;
 }
 
-.board button {
+button {
   padding: 8px 12px;
-  margin: 25px;
+  margin-bottom: 10px;
+  margin-top: 0px;
   background: transparent;
   border: 2px solid #eee;
   color: #eee;
@@ -54,9 +55,22 @@ body {
   cursor: pointer;
 }
 
-.board button:hover {
+button:hover {
   background: #eee;
   color: #222;
+}
+
+.board-4enLinea {
+  width: fit-content;
+  margin: 40px auto;
+  
+  text-align: center;
+}
+
+.board-4enLinea .game{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
 }
 
 .board .game {
