@@ -18,6 +18,8 @@ export const EnLinea = () => {
   const numRow = 6
   const [board, setBoard] = UseinitBoard({ tamaño: lengthBoard })
   const [winner, setWinner] = useState(null)
+  const [descensoIndex, setDescensoIndex] = useState() // Donde cae la ficha?
+  const [fichaDesc, setFichaDesc] = useState() // Que ficha cae?
 
   const [turn, setTurn] = useState(() => {
     const turnFromStorage = window.localStorage.getItem('turn')
@@ -30,28 +32,34 @@ export const EnLinea = () => {
 
     const lastEmptyIndex = getLastEmptyIndexColumn({ col, numCol, board, numRow })
 
-    // Actualizacion de tablero
-    const newBoard = [...board]
-    newBoard[lastEmptyIndex] = turn
-    setBoard(newBoard)
-    // Actualizacion de turno
-    if (lastEmptyIndex != null) {
-      const newTurn = turn === turns.X ? turns.O : turns.X
-      setTurn(newTurn)
-    }
+    setDescensoIndex(lastEmptyIndex)
+    setFichaDesc(turn)
 
-    // Revisar si hay ganador
-    const newWinner = WINNER_4ENLINEA(newBoard, numCol, numRow)
-    if (newWinner) {
-      setWinner(newWinner)
-      confetti()
-    }
+    setTimeout(() => {
+    // Actualizacion de tablero
+      const newBoard = [...board]
+      newBoard[lastEmptyIndex] = turn
+      setBoard(newBoard)
+      // Actualizacion de turno
+      if (lastEmptyIndex != null) {
+        const newTurn = turn === turns.X ? turns.O : turns.X
+        setTurn(newTurn)
+      }
+      // Revisar si hay ganador
+      const newWinner = WINNER_4ENLINEA(newBoard, numCol, numRow)
+      if (newWinner) {
+        setWinner(newWinner)
+        confetti()
+      }
+    }, 400)
   }
 
   const resetGame = () => {
     setBoard(Array(lengthBoard).fill(null))
     setTurn(turns.X)
     setWinner(null)
+    setDescensoIndex(null)
+    setFichaDesc(null)
     resetGameStorage()
   }
 
@@ -69,7 +77,8 @@ export const EnLinea = () => {
               isSelected={board[index]}
               updateBoard={updateBoard}
             >
-              {board[index]}
+              {board[index] || (index === descensoIndex && (
+                <span className={`desc-chip ${fichaDesc}`}>{fichaDesc}</span>))}
             </Square>
           )
         })

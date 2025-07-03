@@ -87,6 +87,31 @@
   font-style: normal;
   padding-bottom: 10px;
 }
+/* animacion de descenso */
+.desc-chip{
+  display: inline-block;
+  animation: fall 0.5s ease-out
+}
+
+.desc-chip.X{
+  color:rgb(255, 255, 255);
+}
+
+.desc-chip.O{
+  color: #ffffff;
+}
+
+@keyframes fall {
+  from{
+    transform: translateY(-600px);
+    opacity: 0.;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 0.; 
+  }
+}
+
 
 @keyframes logo-spin {
   from {
