@@ -103,7 +103,7 @@
 
 @keyframes fall {
   from{
-    transform: translateY(-600px);
+    transform: translateY(-800px);
     opacity: 0.;
   }
   to {

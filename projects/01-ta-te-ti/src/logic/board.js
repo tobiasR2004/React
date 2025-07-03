@@ -73,4 +73,5 @@ export const WINNER_4ENLINEA = (board, numCol, numRow) => {
       }
     }
   }
+  return null
 }

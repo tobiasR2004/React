@@ -6,9 +6,9 @@ import { faCaretLeft } from '@fortawesome/free-solid-svg-icons'
 import { Square } from './Square'
 import { turns } from '../constant.js'
 import { UseinitBoard } from './board.jsx'
-import { getLastEmptyIndexColumn, WINNER_4ENLINEA } from '../logic/board.js'
+import { checkEndGame, getLastEmptyIndexColumn, WINNER_4ENLINEA } from '../logic/board.js'
 import { WinnerModal } from './winnerModal.jsx'
-import { resetGameStorage } from '../logic/storage.js'
+import { resetGameStorage, saveGame } from '../logic/storage.js'
 
 export const EnLinea = () => {
   const navigate = useNavigate()
@@ -20,6 +20,7 @@ export const EnLinea = () => {
   const [winner, setWinner] = useState(null)
   const [descensoIndex, setDescensoIndex] = useState() // Donde cae la ficha?
   const [fichaDesc, setFichaDesc] = useState() // Que ficha cae?
+  const [Animando, setAnimando] = useState(false)
 
   const [turn, setTurn] = useState(() => {
     const turnFromStorage = window.localStorage.getItem('turn')
@@ -28,15 +29,17 @@ export const EnLinea = () => {
 
   const updateBoard = (index) => {
     // apunta a la columna de ese indice
+    if (Animando) return
     const col = index % 7
 
     const lastEmptyIndex = getLastEmptyIndexColumn({ col, numCol, board, numRow })
 
     setDescensoIndex(lastEmptyIndex)
     setFichaDesc(turn)
+    setAnimando(true)
 
     setTimeout(() => {
-    // Actualizacion de tablero
+      // Actualizacion de tablero
       const newBoard = [...board]
       newBoard[lastEmptyIndex] = turn
       setBoard(newBoard)
@@ -44,14 +47,22 @@ export const EnLinea = () => {
       if (lastEmptyIndex != null) {
         const newTurn = turn === turns.X ? turns.O : turns.X
         setTurn(newTurn)
+        saveGame({
+          board: newBoard,
+          turn: newTurn
+        })
       }
+
       // Revisar si hay ganador
       const newWinner = WINNER_4ENLINEA(newBoard, numCol, numRow)
       if (newWinner) {
         setWinner(newWinner)
         confetti()
+      } else if (checkEndGame(newBoard)) {
+        setWinner(false)
       }
-    }, 400)
+      setAnimando(false)
+    }, 450)
   }
 
   const resetGame = () => {
