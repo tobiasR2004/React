@@ -62,6 +62,7 @@
 }
 
 .board {
+  margin-top: 8%;
   background: #000000af;
   padding: 50px;
   border: 2px solid #acadae;

@@ -20,8 +20,13 @@ body {
   margin: 0;
   display: flex;
   justify-content: center;
-  min-width: 320px;
-  min-height: 100vh;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden; /* oculta scroll */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
 }
 
 * {
@@ -61,9 +66,9 @@ button:hover {
 }
 
 .board-4enLinea {
+  height: 95vh;
   width: fit-content;
-  margin: 40px auto;
-  
+  margin: 20px auto;
   text-align: center;
 }
 
@@ -81,11 +86,16 @@ button:hover {
 
 .turn {
   display: flex;
-  justify-content: center;
-  margin: 15px auto;
-  width: fit-content;
+  margin: 15px 0 15px 0;
+  justify-content: space-between;
+  width: auto;
   position: relative;
   border-radius: 10px;
+}
+
+.turn-square{
+  display: flex;
+  gap: 8px
 }
 
 .turn .square,

@@ -77,10 +77,12 @@ export const TaTeTi = () => {
         }
       </section>
       <section className='turn'>
-        <Square isSelected={turn === turns.X}>{turns.X}</Square>
-        <Square isSelected={turn === turns.O}>{turns.O}</Square>
+        <div className='turn-square'>
+          <Square isSelected={turn === turns.X}>{turns.X}</Square>
+          <Square isSelected={turn === turns.O}>{turns.O}</Square>
+        </div>
+        <button onClick={resetGame}>Reiniciar juego</button>
       </section>
-      <button onClick={resetGame}>Reiniciar juego</button>
       <WinnerModal resetGame={resetGame} winner={winner} />
     </main>
   )

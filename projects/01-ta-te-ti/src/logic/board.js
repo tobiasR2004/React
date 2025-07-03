@@ -30,3 +30,47 @@ export function getLastEmptyIndexColumn ({ col, numCol, board, numRow }) {
   }
   return null
 }
+
+export const WINNER_4ENLINEA = (board, numCol, numRow) => {
+  for (let row = 0; row < numRow; row++) {
+    for (let col = 0; col < numCol; col++) {
+      const index = row * numCol + col
+      const cell = board[index]
+
+      if (!cell) continue
+
+      // verificacion horizontal
+      if (col <= numCol - 4 &&
+        cell === board[index + 1] &&
+        cell === board[index + 2] &&
+        cell === board[index + 3]) {
+        return cell
+      }
+
+      // verificacion vertical
+      if (row <= numRow - 3 &&
+        cell === board[index + numCol] &&
+        cell === board[index + numCol * 2] &&
+        cell === board[index + numCol * 3]) {
+        return cell
+      }
+
+      // verificacion diagonal hacia abajo
+      if (col <= numCol - 4 && row <= numRow - 3 &&
+        cell === board[index + numCol + 1] &&
+        cell === board[index + numCol * 2 + 2] &&
+        cell === board[index + numCol * 3 + 3]) {
+        return cell
+      }
+
+      // verificacion diagonal hacia arriba
+      if (col >= 3 && row <= numRow - 3 &&
+        cell === board[index + numCol - 1] &&
+        cell === board[index + numCol * 2 - 2] &&
+        cell === board[index + numCol * 3 - 3]
+      ) {
+        return cell
+      }
+    }
+  }
+}

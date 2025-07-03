@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
+import confetti from 'canvas-confetti'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretLeft } from '@fortawesome/free-solid-svg-icons'
 import { Square } from './Square'
 import { turns } from '../constant.js'
 import { UseinitBoard } from './board.jsx'
-import { getLastEmptyIndexColumn } from '../logic/board.js'
+import { getLastEmptyIndexColumn, WINNER_4ENLINEA } from '../logic/board.js'
+import { WinnerModal } from './winnerModal.jsx'
+import { resetGameStorage } from '../logic/storage.js'
 
 export const EnLinea = () => {
   const navigate = useNavigate()
@@ -22,6 +25,7 @@ export const EnLinea = () => {
   })
 
   const updateBoard = (index) => {
+    // apunta a la columna de ese indice
     const col = index % 7
 
     const lastEmptyIndex = getLastEmptyIndexColumn({ col, numCol, board, numRow })
@@ -35,14 +39,20 @@ export const EnLinea = () => {
       const newTurn = turn === turns.X ? turns.O : turns.X
       setTurn(newTurn)
     }
+
+    // Revisar si hay ganador
+    const newWinner = WINNER_4ENLINEA(newBoard, numCol, numRow)
+    if (newWinner) {
+      setWinner(newWinner)
+      confetti()
+    }
   }
 
   const resetGame = () => {
     setBoard(Array(lengthBoard).fill(null))
     setTurn(turns.X)
     setWinner(null)
-    window.localStorage.removeItem('board')
-    window.localStorage.removeItem('turn')
+    resetGameStorage()
   }
 
   return (
@@ -66,10 +76,13 @@ export const EnLinea = () => {
       }
       </section>
       <section className='turn'>
-        <Square isSelected={turn === turns.X}>{turns.X}</Square>
-        <Square isSelected={turn === turns.O}>{turns.O}</Square>
+        <div className='turn-square'>
+          <Square isSelected={turn === turns.X}>{turns.X}</Square>
+          <Square isSelected={turn === turns.O}>{turns.O}</Square>
+        </div>
+        <button onClick={resetGame}>Reiniciar juego</button>
       </section>
-      <button onClick={resetGame}>Reiniciar juego</button>
+      <WinnerModal resetGame={resetGame} winner={winner} />
     </main>
   )
 }
